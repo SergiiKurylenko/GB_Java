@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class TikTakToe {
-    static final int SIZE = 11;
-    static final int WIN_SIZE = 3;
+    static final int SIZE = 5;
+    static final int WIN_SIZE = 4;
 
     static final char DOT_EMPTY = '•';
     static final char DOT_HUMAN = 'X';
