@@ -4,7 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class TikTakToe {
-    static final int SIZE = 3;
+    static final int SIZE = 11;
+    static final int WIN_SIZE = 3;
 
     static final char DOT_EMPTY = '•';
     static final char DOT_HUMAN = 'X';
@@ -139,38 +140,63 @@ public class TikTakToe {
             System.out.println("\nНичья!");
             return true;
         }
-
         return false;
     }
 
     private static boolean checkWin(char symbol) {
-        if (MAP[0][0] == symbol && MAP[0][1] == symbol && MAP[0][2] == symbol) {
-            return true;
+        int winCheck=0;
+        for (int i = 0; i < SIZE; i++) {        //проверка по горизонтали
+            for (int j = 0; j < SIZE; j++) {
+                if (MAP[i][j] == symbol) {
+                    winCheck ++;
+                    if (winCheck == WIN_SIZE)
+                        return true;
+                }
+                else winCheck = 0;
+            }
         }
-        if (MAP[1][0] == symbol && MAP[1][1] == symbol && MAP[1][2] == symbol) {
-            return true;
-        }
-        if (MAP[2][0] == symbol && MAP[2][1] == symbol && MAP[2][2] == symbol) {
-            return true;
-        }
+        winCheck = 0;
 
-        if (MAP[0][0] == symbol && MAP[1][0] == symbol && MAP[2][0] == symbol) {
-            return true;
+        for (int i = 0; i < SIZE; i++) {        //проверка по вертикали
+            for (int j = 0; j < SIZE; j++) {
+                if (MAP[j][i] == symbol) {
+                    winCheck ++;
+                    if (winCheck == WIN_SIZE)
+                        return true;
+                }
+                else winCheck = 0;
+            }
         }
-        if (MAP[0][1] == symbol && MAP[1][1] == symbol && MAP[2][1] == symbol) {
-            return true;
-        }
-        if (MAP[0][2] == symbol && MAP[1][2] == symbol && MAP[2][2] == symbol) {
-            return true;
-        }
+        winCheck = 0;
 
-        if (MAP[0][0] == symbol && MAP[1][1] == symbol && MAP[2][2] == symbol) {
-            return true;
+        for( int k = 0 ; k < SIZE * 2 ; k++ ) {  //проверка по диагонали (прямая)
+            for( int j = 0 ; j <= k ; j++ ) {
+                int i = k - j;
+                if( i < SIZE && j < SIZE ) {
+                    if (MAP[j][i] == symbol) {
+                        winCheck ++;
+                        if (winCheck == WIN_SIZE)
+                            return true;
+                    }
+                    else winCheck = 0;
+                }
+            }
         }
-        if (MAP[0][2] == symbol && MAP[1][1] == symbol && MAP[2][0] == symbol) {
-            return true;
-        }
+        winCheck = 0;
 
+        for( int k = SIZE-1 ; k > -SIZE ; k-- ) {  //проверка по диагонали (обратная)
+            for( int j = 0 ; j < SIZE ; j++ ) {
+                int i = k + j;
+                if( i < SIZE && j < SIZE  && i >= 0 && j >= 0) {
+                    if (MAP[i][j] == symbol) {
+                        winCheck ++;
+                        if (winCheck == WIN_SIZE)
+                            return true;
+                    }
+                    else winCheck = 0;
+                }
+            }
+        }
         return false;
     }
 
